@@ -1,0 +1,60 @@
+<ons-navigator ng-app="my-app" var="myNavigator" ng-controller="CatalogController">
+   <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars"></ons-icon></ons-toolbar-button>
+                <img src="components/monaca-onsenui/images/logo-box.png" width="23px" style="margin-top:5px;">
+                Productos
+            </div>
+            <!--<div class="center">Page 1</div>-->
+        </ons-toolbar>
+        
+        <div style="text-align: center">
+            <div class="tab-bar tab-bar--top tab-bar--top-border">
+              <label class="tab-bar__item tab-bar--top-border__item">
+                <input type="radio" name="top-tab-bar-b" checked="checked">
+                <button class="tab-bar__button tab-bar--top-border__button">
+                  Cojines
+                </button>
+              </label>
+            
+              <label class="tab-bar__item tab-bar--top-border__item">
+                <input type="radio" name="top-tab-bar-b">
+                <button class="tab-bar__button tab-bar--top-border__button">
+                  Pads
+                </button>
+              </label>
+            
+              <label class="tab-bar__item tab-bar--top-border__item">
+                <input type="radio" name="top-tab-bar-b">
+                <button class="tab-bar__button tab-bar--top-border__button">
+                  Tazas
+                </button>
+              </label>
+              
+              <label class="tab-bar__item tab-bar--top-border__item">
+                <input type="radio" name="top-tab-bar-b">
+                <button class="tab-bar__button tab-bar--top-border__button">
+                  Puzzles
+                </button>
+              </label>
+            </div>
+            <img 
+                width="100%"
+                src="http://creayregala.com/image/cache/data/slider/slider1-880x450.jpg" 
+                alt="Tarjeta Regalo" />
+            <label style="floar:left;text-align:left;">Productos Personalizables</label>    
+            <ons-carousel
+                swipeable overscrollable auto-scroll direction="horizontal"
+                item-width="150px"
+                style="width: 100%; height: 150px">
+              <ons-carousel-item ng-repeat="item in products.items">
+                <ons-list-item ng-click="showDetail(item)">
+                   <img width="50%" src="{{item.src}}" >
+                </ons-list-item>
+              </ons-carousel-item>
+            </ons-carousel>
+                
+        </div>
+    </ons-page>
+</ons-navigator>

@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="components/loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        var module = ons.bootstrap('my-app', ['onsen','ui.router'])
+            .controller('AppController', function($scope) { 
+                $scope.texto = "aaaaa";
+            })
+            .controller('productDetailsController', function($scope,$rootScope,$data,myService) { 
+                var a = $scope.myNavigator;
+                var b = a.getCurrentPage();//];
+                var c = b.options.index;
+                $scope.src = $rootScope.selectedItem.src;
+                
+                
+            })
+            .controller('CatalogController', function($scope,$rootScope,$http,$data,myService) { 
+                $scope.texto = "aaaaa";
+                $scope.products = $data;
+                
+                myService.set($data);
+                
+                $scope.showDetail = function(index) {
+    					  
+				    var a = 0;  
+                    $rootScope.selectedItem = index;
+                    $scope.app.slidingMenu.setMainPage('productDetails.html', {closeMenu: true});    
+				  
+				};
+                /*$http.get('http://creayregala.com/index.php?route=feed/rest_api/products&key=192837465&callback=JSON_CALLBACK')
+                    .success(function (data, status, headers, config) {
+                        console.log(data);
+                        var obj = JSON.parse(data);
+                        $scope.products = obj["products"];
+                        //deferred.resolve(data);
+                }).error(function (data, status, headers, config) {
+                    //this always gets called
+                    console.log(status);
+                    //deferred.reject(status);
+                });          */
+
+            }).factory('myService', function() {
+                 var savedData = {}
+                 function set(data) {
+                   savedData = data;
+                 }
+                 function get() {
+                  return savedData;
+                 }
+                
+                 return {
+                  set: set,
+                  get: get
+                 }
+                
+                }).factory('$data',function() {
+                
+                var data = {};
+        
+        		data.items = [
+        			{
+                        id:"1",
+                        src:"http://creayregala.com/image/cache/data/productos/personalizados/agenda_negra_foto_3_3x1q8cq3-500x613.jpg"
+                    },{
+                        id:"2",
+                        src:"http://creayregala.com/image/cache/data/productos/personalizados/td-594sv-500x613.jpg"
+                    },{
+                        id:"3",
+                        src:"http://creayregala.com/image/cache/data/productos/personalizados/6153_g-500x613.jpg"
+                    },{
+                        id:"4",
+                        src:"http://creayregala.com/image/cache/data/productos/personalizados/babero_personalizado_2-500x613.jpg"
+                    },{
+                        id:"5",
+                        src:"http://creayregala.com/image/cache/data/productos/personalizados/aaaaa-500x613.jpg"
+                    }
+        		];
+        
+        		return data;
+        	});
+    </script>
+    <script type="text/javascript">
+      document.addEventListener("deviceready", onDeviceReady, false);
+    
+      function onDeviceReady () {
+         //window.alert ('Loading PhoneGap is completed');
+      }
+    
+      function onSuccess (imageURI) {
+        var largeImage = document.getElementById ('picture');
+        largeImage.style.display = 'block';
+        largeImage.src = imageURI;
+      }
+    
+      function getPhoto () {
+        //Specify the source to get the photos.
+        navigator.camera.getPicture(onSuccess, onFail, 
+          { quality: 50,destinationType: Camera.DestinationType.FILE_URI,
+          sourceType: navigator.camera.PictureSourceType.SAVEDPHOTOALBUM });
+      }
+    
+      function onFail (message) {
+          alert('An error occured: ' + message);
+      }
+    </script>
+</head>
+<body>
+    <ons-sliding-menu 
+        var="app.slidingMenu" 
+        menu-page="menu.html" 
+        main-page="page1.html" 
+        side="left" 
+        type="overlay" 
+        max-slide-distance="200px">
+    </ons-sliding-menu>
+</body>
+</html>
